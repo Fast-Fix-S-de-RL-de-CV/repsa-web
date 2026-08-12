@@ -62,6 +62,15 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script type="importmap">
+  {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"}}
+</script>
+<script type="module">
+  import * as THREE from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  window.REPSA_THREE = { THREE, GLTFLoader };
+  window.dispatchEvent(new Event('repsa:three-ready'));
+</script>
 <script>
 tailwind.config = {
   theme: {
@@ -116,13 +125,16 @@ tailwind.config = {
 /* ============ CINEMATIC SCROLL STORY ============ */
 .cinematic-story{position:relative;min-height:400svh;background:#06111e;color:#fff;isolation:isolate}
 .cinematic-canvas{position:sticky;top:0;height:100svh;overflow:hidden;background:#06111e}
-.cinematic-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;background:#06111e;filter:saturate(.9) contrast(1.08)}
-.cinematic-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(3,12,23,.88) 0%,rgba(3,12,23,.61) 34%,rgba(3,12,23,.19) 65%,rgba(3,12,23,.31) 100%),linear-gradient(0deg,rgba(3,12,23,.8) 0%,transparent 34%,rgba(3,12,23,.32) 100%)}
-.cinematic-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 57% 44%,transparent 0 34%,rgba(1,7,14,.15) 72%,rgba(1,7,14,.5) 100%)}
-.cinematic-facility-label{position:absolute;z-index:1;right:clamp(20px,4vw,64px);top:clamp(110px,16vh,158px);display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.7);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
+.cinematic-video{position:absolute;z-index:0;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;background:#06111e;filter:saturate(.9) contrast(1.08)}
+.cinematic-3d-backdrop{position:absolute;z-index:1;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse 80% 68% at 64% 54%,rgba(23,73,112,.5),transparent 48%),radial-gradient(ellipse 45% 54% at 10% 80%,rgba(229,92,4,.23),transparent 62%),linear-gradient(125deg,#030912 0%,#071a2c 52%,#02070d 100%)}
+.cinematic-3d-backdrop::before{content:"";position:absolute;inset:0;opacity:.42;background:linear-gradient(rgba(141,188,219,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(141,188,219,.1) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(to bottom,transparent,black 25%,black 78%,transparent)}
+.cinematic-three-canvas{position:absolute;z-index:2;inset:0;width:100%;height:100%;pointer-events:none;filter:drop-shadow(0 28px 40px rgba(0,0,0,.42))}
+.cinematic-shade{position:absolute;z-index:3;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(3,12,23,.88) 0%,rgba(3,12,23,.61) 34%,rgba(3,12,23,.19) 65%,rgba(3,12,23,.31) 100%),linear-gradient(0deg,rgba(3,12,23,.8) 0%,transparent 34%,rgba(3,12,23,.32) 100%)}
+.cinematic-vignette{position:absolute;z-index:4;inset:0;pointer-events:none;background:radial-gradient(circle at 57% 44%,transparent 0 34%,rgba(1,7,14,.15) 72%,rgba(1,7,14,.5) 100%)}
+.cinematic-facility-label{position:absolute;z-index:5;right:clamp(20px,4vw,64px);top:clamp(110px,16vh,158px);display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.7);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
 .cinematic-facility-label::before{content:"";width:28px;height:1px;background:#ff8a00}
-.cinematic-footer{position:absolute;z-index:1;right:clamp(16px,4vw,64px);bottom:clamp(18px,3vh,32px);left:clamp(16px,4vw,64px);display:flex;align-items:end;justify-content:space-between;gap:20px}.cinematic-location{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.67);font:500 10px/1.4 'JetBrains Mono',monospace;letter-spacing:.13em;text-transform:uppercase}.cinematic-location i{color:#ff9a3d}.cinematic-timeline{width:min(280px,34vw)}.cinematic-progress-track{height:2px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.26)}.cinematic-progress-fill{display:block;width:100%;height:100%;background:#ff8a00;transform:scaleX(0);transform-origin:left}.cinematic-progress-copy{display:flex;justify-content:space-between;margin-bottom:9px;color:rgba(255,255,255,.66);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.12em}
-.cinematic-story-track{position:relative;z-index:2;margin-top:-100svh;pointer-events:none}
+.cinematic-footer{position:absolute;z-index:5;right:clamp(16px,4vw,64px);bottom:clamp(18px,3vh,32px);left:clamp(16px,4vw,64px);display:flex;align-items:end;justify-content:space-between;gap:20px}.cinematic-location{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.67);font:500 10px/1.4 'JetBrains Mono',monospace;letter-spacing:.13em;text-transform:uppercase}.cinematic-location i{color:#ff9a3d}.cinematic-timeline{width:min(280px,34vw)}.cinematic-progress-track{height:2px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.26)}.cinematic-progress-fill{display:block;width:100%;height:100%;background:#ff8a00;transform:scaleX(0);transform-origin:left}.cinematic-progress-copy{display:flex;justify-content:space-between;margin-bottom:9px;color:rgba(255,255,255,.66);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.12em}
+.cinematic-story-track{position:relative;z-index:5;margin-top:-100svh;pointer-events:none}
 .cinematic-chapter{display:flex;min-height:100svh;align-items:center;padding:clamp(96px,13vh,150px) clamp(20px,7vw,104px) clamp(84px,12vh,128px);pointer-events:none}
 .cinematic-chapter--left{justify-content:flex-start}.cinematic-chapter--right{justify-content:flex-end}.cinematic-chapter--center{justify-content:center;text-align:center}
 .cinematic-copy,.cinematic-card{pointer-events:auto}.cinematic-copy{width:min(720px,100%)}
@@ -134,9 +146,9 @@ tailwind.config = {
 .cinematic-card{width:min(390px,100%);border:1px solid rgba(255,255,255,.21);border-radius:24px;background:linear-gradient(145deg,rgba(9,28,50,.7),rgba(7,17,30,.52));box-shadow:0 24px 70px rgba(0,0,0,.26);backdrop-filter:blur(17px) saturate(120%);padding:clamp(22px,3vw,34px)}
 .cinematic-card-index{display:flex;align-items:center;gap:9px;color:#ff9a3d;font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:.14em}.cinematic-card-index::before{content:"";width:24px;height:1px;background:currentColor}.cinematic-card h2{max-width:360px;margin:19px 0 0;font-family:'Fraunces',Georgia,serif;font-size:clamp(32px,3.7vw,54px);font-weight:700;letter-spacing:-.045em;line-height:.92}.cinematic-card p{margin-top:17px;color:rgba(255,255,255,.76);font-size:15px;line-height:1.55}.cinematic-card-list{display:grid;gap:11px;margin:25px 0 0;border-top:1px solid rgba(255,255,255,.16);padding-top:18px;color:rgba(255,255,255,.88);font-size:13px;font-weight:600}.cinematic-card-list span{display:flex;align-items:center;gap:9px}.cinematic-card-list i{width:14px;height:14px;color:#ff9a3d}
 .cinematic-chapter--closing .cinematic-copy{max-width:780px}.cinematic-chapter--closing .cinematic-title{max-width:780px}.cinematic-scroll-cue{display:inline-flex;align-items:center;gap:10px;margin-top:28px;color:rgba(255,255,255,.6);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.13em}.cinematic-scroll-cue i{width:15px;height:15px;color:#ff9a3d}
-@media(max-width:899px){.cinematic-story{min-height:360svh}.cinematic-canvas{height:100svh}.cinematic-video{object-position:57% center}.cinematic-shade{background:linear-gradient(90deg,rgba(3,12,23,.76),rgba(3,12,23,.25)),linear-gradient(0deg,rgba(3,12,23,.87),transparent 46%,rgba(3,12,23,.35))}.cinematic-vignette{background:radial-gradient(circle at 57% 42%,transparent 0 28%,rgba(1,7,14,.17) 70%,rgba(1,7,14,.56) 100%)}.cinematic-chapter{min-height:90svh;padding:112px 22px 102px}.cinematic-chapter--right{justify-content:flex-start}.cinematic-facility-label{right:18px;top:92px;font-size:9px}.cinematic-title{font-size:clamp(50px,13vw,78px);max-width:560px}.cinematic-card{max-width:360px}.cinematic-footer{bottom:18px}.cinematic-timeline{width:150px}.cinematic-location{max-width:200px}.cinematic-scroll-cue{margin-top:20px}}
+@media(max-width:899px){.cinematic-story{min-height:360svh}.cinematic-canvas{height:100svh}.cinematic-three-canvas{display:none}.cinematic-video{object-position:57% center}.cinematic-shade{background:linear-gradient(90deg,rgba(3,12,23,.76),rgba(3,12,23,.25)),linear-gradient(0deg,rgba(3,12,23,.87),transparent 46%,rgba(3,12,23,.35))}.cinematic-vignette{background:radial-gradient(circle at 57% 42%,transparent 0 28%,rgba(1,7,14,.17) 70%,rgba(1,7,14,.56) 100%)}.cinematic-chapter{min-height:90svh;padding:112px 22px 102px}.cinematic-chapter--right{justify-content:flex-start}.cinematic-facility-label{right:18px;top:92px;font-size:9px}.cinematic-title{font-size:clamp(50px,13vw,78px);max-width:560px}.cinematic-card{max-width:360px}.cinematic-footer{bottom:18px}.cinematic-timeline{width:150px}.cinematic-location{max-width:200px}.cinematic-scroll-cue{margin-top:20px}}
 @media(max-width:539px){.cinematic-story{min-height:380svh}.cinematic-chapter{padding:106px 18px 92px}.cinematic-title{font-size:50px}.cinematic-body{max-width:345px;font-size:16px}.cinematic-facts{margin-top:25px}.cinematic-fact{padding:8px 10px;font-size:11px}.cinematic-facility-label{display:none}.cinematic-card{border-radius:20px;padding:22px}.cinematic-card h2{font-size:36px}.cinematic-footer{left:16px;right:16px}.cinematic-location{max-width:165px;font-size:9px}.cinematic-timeline{width:118px}.cinematic-actions{margin-top:24px}.cinematic-action{min-height:46px;padding:0 16px}}
-@media(prefers-reduced-motion:reduce){.grain{animation:none;display:none}.cinematic-action{transition:none}.cinematic-video{filter:saturate(.92) contrast(1.03)}}
+@media(prefers-reduced-motion:reduce){.grain{animation:none;display:none}.cinematic-action{transition:none}.cinematic-three-canvas{display:none}.cinematic-video{filter:saturate(.92) contrast(1.03)}}
 /* ============ HIGH IMPACT LAYER ============ */
 body.locked{overflow:hidden}
 @media(pointer:fine){ body, body a, body button, body input, body select, body textarea{cursor:none} }
@@ -299,6 +311,8 @@ body{padding-bottom:70px}
     <video id="cinematicVideo" class="cinematic-video" muted playsinline autoplay loop preload="metadata" poster="assets/video/repsa-drone-campus-scroll-web-poster.jpg">
       <source src="assets/video/repsa-drone-campus-scroll-web.mp4" type="video/mp4">
     </video>
+    <div id="cinematic3dBackdrop" class="cinematic-3d-backdrop"></div>
+    <canvas id="cinematicThreeCanvas" class="cinematic-three-canvas" aria-hidden="true"></canvas>
     <div class="cinematic-shade"></div>
     <div class="cinematic-vignette"></div>
     <div class="cinematic-facility-label">PLANTA · TOLUCA, MÉXICO</div>
@@ -1340,6 +1354,7 @@ function initCinematicHero(){
     const viewport = window.innerHeight || document.documentElement.clientHeight;
     const distance = Math.max(1, section.offsetHeight - viewport);
     const progress = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / distance));
+    window.setCinematic3DProgress?.(progress);
     // Four viewport chapters occupy three scroll-lengths after the first one.
     const activeIndex = Math.min(chapters.length - 1, Math.floor(progress * (chapters.length - 1) + .001));
     if(fill) fill.style.transform = `scaleX(${progress})`;
@@ -1390,6 +1405,299 @@ function initCinematicHero(){
   document.addEventListener('visibilitychange', ()=>{
     if(document.hidden) video.pause();
   });
+}
+
+// CINEMATIC 3D STAGE — temporary procedural study.
+// The choreography and scroll contract stay intact when these groups are replaced by Blender GLB assets.
+function initIndustrial3D(){
+  const canvas = document.getElementById('cinematicThreeCanvas');
+  const section = document.getElementById('cinematicHero');
+  const video = document.getElementById('cinematicVideo');
+  const backdrop = document.getElementById('cinematic3dBackdrop');
+  const shade = section?.querySelector('.cinematic-shade');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const desktop = window.matchMedia('(min-width: 900px)');
+  if(!canvas || !section || reduceMotion.matches || !desktop.matches || section.dataset.threeReady) return;
+  if(!window.REPSA_THREE){
+    if(!section.dataset.threeWaiting){
+      section.dataset.threeWaiting = 'true';
+      window.addEventListener('repsa:three-ready', initIndustrial3D, {once:true});
+    }
+    return;
+  }
+  section.dataset.threeReady = 'true';
+
+  const {THREE:T, GLTFLoader} = window.REPSA_THREE;
+  let renderer;
+  try{
+    renderer = new T.WebGLRenderer({canvas, alpha:true, antialias:true, powerPreference:'high-performance'});
+  }catch(error){
+    return;
+  }
+  renderer.setClearColor(0x000000, 0);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  if('outputColorSpace' in renderer) renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = T.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.18;
+
+  const scene = new T.Scene();
+  const camera = new T.PerspectiveCamera(34, 1, .1, 100);
+  camera.position.set(0, 1.05, 15.2);
+  camera.lookAt(0, .15, 0);
+
+  scene.add(new T.HemisphereLight(0x9cc5ff, 0x060d16, 2.2));
+  const key = new T.DirectionalLight(0xffffff, 2.8);
+  key.position.set(4, 7, 8);
+  scene.add(key);
+  const rim = new T.PointLight(0xff8a00, 30, 22, 2);
+  rim.position.set(-6, 3, 4);
+  scene.add(rim);
+  const coolRim = new T.PointLight(0x54b4ff, 18, 18, 2);
+  coolRim.position.set(7, 1, -1);
+  scene.add(coolRim);
+
+  const clamp = (value, min=0, max=1) => Math.max(min, Math.min(max, value));
+  const lerp = (from, to, value) => from + (to - from) * value;
+  const smooth = (value, start, end) => {
+    const t = clamp((value - start) / (end - start));
+    return t * t * (3 - 2 * t);
+  };
+  const standard = (color, roughness=.52, metalness=.2) => new T.MeshStandardMaterial({color, roughness, metalness, transparent:true, opacity:1});
+  const box = (width, height, depth, material, x=0, y=0, z=0) => {
+    const mesh = new T.Mesh(new T.BoxGeometry(width, height, depth), material);
+    mesh.position.set(x, y, z);
+    return mesh;
+  };
+  const cylinder = (radiusTop, radiusBottom, height, material, x=0, y=0, z=0) => {
+    const mesh = new T.Mesh(new T.CylinderGeometry(radiusTop, radiusBottom, height, 18), material);
+    mesh.position.set(x, y, z);
+    return mesh;
+  };
+  const setOpacity = (root, opacity) => {
+    root.visible = opacity > .01;
+    root.traverse(node => {
+      if(!node.material) return;
+      const materials = Array.isArray(node.material) ? node.material : [node.material];
+      materials.forEach(material => {
+        material.transparent = true;
+        material.opacity = opacity;
+        material.depthWrite = opacity > .92;
+      });
+    });
+  };
+
+  function createRollOff(){
+    const group = new T.Group();
+    const white = standard(0xe8edf4, .34, .24);
+    const steel = standard(0x101b26, .3, .68);
+    const rubber = standard(0x05080b, .84, .04);
+    const amber = new T.MeshStandardMaterial({color:0xff8a00, emissive:0xd35400, emissiveIntensity:2.4, roughness:.35, metalness:.15, transparent:true});
+    const glass = new T.MeshStandardMaterial({color:0x164467, emissive:0x0b2136, emissiveIntensity:.9, roughness:.14, metalness:.52, transparent:true});
+
+    group.add(box(5.15, .38, 1.72, steel, .1, .32, 0));
+    const cabProfile = new T.Shape();
+    cabProfile.moveTo(-.78, 0);
+    cabProfile.lineTo(.77, 0);
+    cabProfile.lineTo(.77, 1.22);
+    cabProfile.lineTo(-.28, 1.45);
+    cabProfile.lineTo(-.78, .96);
+    cabProfile.closePath();
+    const cab = new T.Mesh(new T.ExtrudeGeometry(cabProfile, {depth:1.64, bevelEnabled:true, bevelSegments:3, bevelSize:.07, bevelThickness:.07}), white);
+    cab.position.set(-2.06, .44, -.82);
+    group.add(cab);
+    group.add(box(.06, .56, 1.22, glass, -2.85, 1.35, 0));
+    group.add(box(.86, .5, .035, glass, -2.02, 1.48, -.85));
+    group.add(box(.86, .5, .035, glass, -2.02, 1.48, .85));
+    group.add(box(.78, .2, 1.3, steel, -2.86, .63, 0));
+    group.add(box(.18, .12, .16, amber, -2.92, .81, -.58));
+    group.add(box(.18, .12, .16, amber, -2.92, .81, .58));
+    group.add(box(3.5, .14, .16, steel, .35, 1.05, -.58));
+    group.add(box(3.5, .14, .16, steel, .35, 1.05, .58));
+    group.add(box(3.2, .1, .1, steel, .38, 1.36, -.58));
+    group.add(box(3.2, .1, .1, steel, .38, 1.36, .58));
+    group.add(box(2.35, .16, .16, steel, .55, 1.68, 0).rotateZ(-.34));
+    group.add(box(.16, 1.32, .15, steel, 1.64, 1.8, 0).rotateZ(.5));
+    group.add(box(.22, .22, 1.02, amber, 2.78, 1.02, 0));
+
+    [-1.86, .1, 1.7].forEach(axle => {
+      [-.96, .96].forEach(side => {
+        const wheel = cylinder(.56, .56, .32, rubber, axle, .45, side);
+        wheel.rotation.z = Math.PI / 2;
+        group.add(wheel);
+        const hub = cylinder(.19, .19, .35, white, axle, .45, side);
+        hub.rotation.z = Math.PI / 2;
+        group.add(hub);
+      });
+    });
+    group.add(box(1.9, .06, .06, amber, .42, 1.22, -.72));
+    group.add(box(1.9, .06, .06, amber, .42, 1.22, .72));
+    return group;
+  }
+
+  function attachWeldingSparks(group, point){
+    if(group.userData.sparks) return;
+    const sparkGeometry = new T.BufferGeometry();
+    const sparkPositions = new Float32Array(72 * 3);
+    sparkGeometry.setAttribute('position', new T.BufferAttribute(sparkPositions, 3));
+    const sparkMaterial = new T.PointsMaterial({color:0xffa52f, size:.105, sizeAttenuation:true, transparent:true, opacity:0, depthWrite:false, blending:T.AdditiveBlending});
+    const sparks = new T.Points(sparkGeometry, sparkMaterial);
+    sparks.position.copy(point);
+    group.add(sparks);
+    const weldLight = new T.PointLight(0xff7a18, 0, 8, 2);
+    weldLight.position.copy(point).add(new T.Vector3(0, 0, .08));
+    group.add(weldLight);
+    group.userData.sparks = {points:sparks, positions:sparkPositions, material:sparkMaterial, light:weldLight};
+  }
+
+  function createTechnician(){
+    const group = new T.Group();
+    const jacket = standard(0x255f9d, .46, .32);
+    const trousers = standard(0x142130, .66, .16);
+    const skin = standard(0x7c4e37, .72, .05);
+    const helmet = standard(0x0a1119, .3, .56);
+    const glove = standard(0xc8d0d6, .48, .38);
+    const boot = standard(0x080b0e, .8, .06);
+    const hotSteel = new T.MeshStandardMaterial({color:0xff8a00, emissive:0xff5b00, emissiveIntensity:3.6, roughness:.3, transparent:true});
+
+    group.add(cylinder(.37, .44, 1.14, jacket, 0, 1.45, 0));
+    group.add(cylinder(.23, .28, .82, trousers, -.22, .47, 0));
+    group.add(cylinder(.23, .28, .82, trousers, .22, .47, 0));
+    group.add(box(.35, .18, .5, boot, -.24, .03, .08));
+    group.add(box(.35, .18, .5, boot, .24, .03, .08));
+    group.add(cylinder(.28, .28, .35, skin, 0, 2.18, 0));
+    group.add(box(.62, .3, .53, helmet, 0, 2.31, .04));
+    group.add(box(.64, .08, .5, helmet, 0, 2.19, .12));
+
+    const arm = new T.Group();
+    arm.position.set(.35, 1.78, 0);
+    arm.rotation.z = -.92;
+    arm.add(cylinder(.17, .19, .77, jacket, 0, -.35, 0));
+    arm.add(cylinder(.13, .15, .55, glove, .18, -.72, .02).rotateZ(-.54));
+    const torch = box(.62, .09, .09, helmet, .46, -.84, .03);
+    torch.rotation.z = -.15;
+    arm.add(torch);
+    arm.add(box(.12, .1, .1, hotSteel, .78, -.89, .03));
+    group.add(arm);
+
+    const rearArm = new T.Group();
+    rearArm.position.set(-.35, 1.78, 0);
+    rearArm.rotation.z = .55;
+    rearArm.add(cylinder(.16, .18, .72, jacket, 0, -.34, 0));
+    rearArm.add(cylinder(.12, .14, .48, glove, -.12, -.68, .02).rotateZ(.34));
+    group.add(rearArm);
+
+    attachWeldingSparks(group, new T.Vector3(.79, .91, .05));
+    return group;
+  }
+
+  let truck = createRollOff();
+  let technician = createTechnician();
+  truck.position.set(11, -2.35, -9);
+  technician.position.set(-10, -2.2, -4);
+  scene.add(truck, technician);
+
+  let targetProgress = 0;
+  let displayedProgress = 0;
+  let raf = 0;
+  const resize = () => {
+    const width = canvas.clientWidth || window.innerWidth;
+    const height = canvas.clientHeight || window.innerHeight;
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  };
+  const updateSparks = progress => {
+    const data = technician.userData.sparks;
+    const active = smooth(progress, .34, .48) * (1 - smooth(progress, .79, .94));
+    data.material.opacity = active * .96;
+    data.light.intensity = active * 14;
+    for(let i=0; i<data.positions.length; i+=3){
+      const n = i / 3;
+      const arc = n * 2.399 + progress * 21;
+      const distance = .08 + ((n * 17) % 13) / 13 * .78;
+      data.positions[i] = Math.cos(arc) * distance;
+      data.positions[i+1] = -Math.abs(Math.sin(arc)) * distance - (n % 6) * .025;
+      data.positions[i+2] = Math.sin(arc * .73) * distance * .42;
+    }
+    data.points.geometry.attributes.position.needsUpdate = true;
+  };
+  const render = () => {
+    raf = 0;
+    displayedProgress += (targetProgress - displayedProgress) * .16;
+    if(Math.abs(targetProgress - displayedProgress) < .0008) displayedProgress = targetProgress;
+    const progress = displayedProgress;
+    const truckIn = smooth(progress, .045, .24);
+    const truckOut = smooth(progress, .22, .34);
+    const truckOpacity = Math.min(truckIn, 1 - truckOut);
+    truck.position.set(
+      lerp(13, 5.1, truckIn) + lerp(0, 9.5, truckOut),
+      lerp(-3.3, -1.45, truckIn) + lerp(0, -.7, truckOut),
+      lerp(-12.5, 1.6, truckIn) + lerp(0, -7.5, truckOut)
+    );
+    const truckScale = lerp(.25, 1, truckIn) * lerp(1, .7, truckOut);
+    truck.scale.setScalar(truckScale);
+    truck.rotation.set(lerp(.08, -.06, truckIn), lerp(-1.12, -.42, truckIn) + truckOut * .82, lerp(.08, -.03, truckIn));
+    setOpacity(truck, truckOpacity);
+
+    // Let the vehicle complete its reveal before the fabrication specialist takes over.
+    const workerIn = smooth(progress, .28, .4);
+    const workerOut = smooth(progress, .59, .72);
+    const workerOpacity = Math.min(workerIn, 1 - workerOut);
+    technician.position.set(lerp(-10, -1.05, workerIn), lerp(-2.9, -1.54, workerIn), lerp(-6, .6, workerIn));
+    technician.scale.setScalar(lerp(.36, 1.22, workerIn) * lerp(1, .82, workerOut));
+    technician.rotation.set(0, lerp(.72, .28, workerIn), lerp(-.12, .03, workerIn));
+    setOpacity(technician, workerOpacity);
+    updateSparks(progress);
+    const stageOpacity = Math.min(smooth(progress, .075, .22), 1 - smooth(progress, .62, .8));
+    if(backdrop) backdrop.style.opacity = String(stageOpacity);
+    if(video) video.style.opacity = String(1 - stageOpacity * .84);
+    if(shade) shade.style.opacity = String(1 - stageOpacity * .62);
+    renderer.render(scene, camera);
+    if(Math.abs(targetProgress - displayedProgress) > .0008 && !document.hidden) raf = requestAnimationFrame(render);
+  };
+  const setProgress = progress => {
+    targetProgress = clamp(progress);
+    if(!raf && !document.hidden) raf = requestAnimationFrame(render);
+  };
+  window.setCinematic3DProgress = setProgress;
+  const loader = new GLTFLoader();
+  loader.load('assets/models/repsa-rolloff-concept.glb', gltf => {
+    scene.remove(truck);
+    truck = gltf.scene;
+    truck.traverse(node => {
+      if(node.isMesh){
+        node.castShadow = true;
+        node.receiveShadow = true;
+      }
+    });
+    scene.add(truck);
+    setProgress(targetProgress);
+  }, undefined, () => {
+    // The procedural truck remains as an offline fallback.
+  });
+  loader.load('assets/models/repsa-welding-technician-concept.glb', gltf => {
+    scene.remove(technician);
+    technician = gltf.scene;
+    technician.traverse(node => {
+      if(node.isMesh){
+        node.castShadow = true;
+        node.receiveShadow = true;
+      }
+    });
+    attachWeldingSparks(technician, new T.Vector3(1.46, 1.1, .05));
+    scene.add(technician);
+    setProgress(targetProgress);
+  }, undefined, () => {
+    // The procedural technician remains as an offline fallback.
+  });
+  const syncFromViewport = () => {
+    const distance = Math.max(1, section.offsetHeight - window.innerHeight);
+    setProgress(-section.getBoundingClientRect().top / distance);
+  };
+  resize();
+  syncFromViewport();
+  window.addEventListener('resize', ()=>{ resize(); syncFromViewport(); }, {passive:true});
+  desktop.addEventListener?.('change', ()=>{ if(!desktop.matches) renderer.setSize(1, 1, false); });
 }
 
 gsap.utils.toArray('[data-count]').forEach(el=>{
@@ -1580,6 +1888,7 @@ const preFill = document.getElementById('preFill');
 function boot(){
   lenis.start();
   initCinematicHero();
+  initIndustrial3D();
   featAutoplay();
 }
 if(preloader){
