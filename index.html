@@ -1317,7 +1317,7 @@ gsap.registerPlugin(ScrollTrigger);
 lenis.on('scroll', ScrollTrigger.update);
 
 // CINEMATIC STORY — the normal page scroll passes over a CSS-sticky canvas.
-// Native looping playback stays fluid while the page controls only its chapters.
+// ScrollTrigger advances the shot but never pins or hijacks page input.
 function initCinematicHero(){
   const section = document.getElementById('cinematicHero');
   const video = document.getElementById('cinematicVideo');
@@ -1330,8 +1330,10 @@ function initCinematicHero(){
   video.muted = true;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const desktop = window.matchMedia('(min-width: 900px)');
   const chapterLabels = ['RECORRIDO 01', 'CAPACIDAD', 'FABRICACIÓN', 'SOLUCIONES'];
   let frame = 0;
+  let videoScrollTween;
 
   const update = () => {
     frame = 0;
@@ -1354,13 +1356,34 @@ function initCinematicHero(){
       video.pause();
       return;
     }
-    video.play().catch(()=>{});
+    if(!desktop.matches){
+      video.play().catch(()=>{});
+      update();
+      return;
+    }
+    video.pause();
+    if(videoScrollTween) videoScrollTween.kill();
+    const endTime = Math.max(.05, video.duration - .05);
+    videoScrollTween = gsap.to(video, {
+      currentTime:endTime,
+      duration:1,
+      ease:'none',
+      scrollTrigger:{
+        trigger:section,
+        start:'top top',
+        end:'bottom bottom',
+        scrub:.35,
+        invalidateOnRefresh:true
+      }
+    });
     update();
+    ScrollTrigger.refresh();
   };
 
   if(video.readyState >= 2) begin();
   else video.addEventListener('loadeddata', begin, {once:true});
   window.addEventListener('resize', requestUpdate, {passive:true});
+  desktop.addEventListener?.('change', begin);
   window.addEventListener('scroll', requestUpdate, {passive:true});
   lenis.on('scroll', requestUpdate);
   reduceMotion.addEventListener?.('change', begin);
