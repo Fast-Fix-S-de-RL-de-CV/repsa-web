@@ -13,9 +13,8 @@
 <meta property="og:title" content="REPSA | Remolques y Plataformas de Toluca">
 <meta property="og:description" content="Roll Off, grúas articuladas, cajas de transferencia, góndolas y recolectores fabricados en Toluca. ISO 9001:2015. Entrega a todo México.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" as="image" href="assets/fotos/01-camion-roll-off-planta-repsa-lg.jpg">
-<link rel="preload" as="image" href="assets/video/repsa-roll-off-scroll-poster.jpg" fetchpriority="high">
-<link rel="preload" as="video" href="assets/video/repsa-roll-off-scroll.mp4" type="video/mp4">
+<link rel="preload" as="image" href="assets/video/repsa-drone-campus-scroll-web-poster.jpg" fetchpriority="high">
+<link rel="preload" as="video" href="assets/video/repsa-drone-campus-scroll-web.mp4" type="video/mp4">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -114,28 +113,30 @@ tailwind.config = {
 .marquee{animation: marquee 28s linear infinite}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.marquee{animation:none}.card-hover:hover{transform:none}}
-/* ============ CINEMATIC SCROLL HERO ============ */
-.cinematic-hero{position:relative;min-height:100svh;background:#081626;color:#fff;isolation:isolate}
-.cinematic-pin{position:relative;min-height:100svh;height:100svh;overflow:hidden}
-.cinematic-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;background:#081626;filter:saturate(.92) contrast(1.07)}
-.cinematic-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(3,12,23,.94) 0%,rgba(3,12,23,.73) 33%,rgba(3,12,23,.24) 61%,rgba(3,12,23,.12) 100%),linear-gradient(0deg,rgba(3,12,23,.82) 0%,transparent 38%,rgba(3,12,23,.22) 100%)}
-.cinematic-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 66% 42%,transparent 0 29%,rgba(1,7,14,.19) 70%,rgba(1,7,14,.48) 100%)}
-.cinematic-copy{position:relative;z-index:2;max-width:740px;padding-top:clamp(150px,19vh,218px)}
-.cinematic-kicker{display:inline-flex;align-items:center;gap:10px;color:rgba(255,255,255,.76);font:600 11px/1.2 'JetBrains Mono',monospace;letter-spacing:.17em;text-transform:uppercase}
-.cinematic-kicker::before{content:"";width:32px;height:1px;background:#ff8a00}
-.cinematic-title{max-width:700px;margin:20px 0 0;font-family:'Fraunces',Georgia,serif;font-size:clamp(48px,7.4vw,108px);font-weight:700;letter-spacing:-.055em;line-height:.86;text-wrap:balance}
-.cinematic-title em{font-style:normal;color:#ff9a3d}
-.cinematic-body{max-width:550px;margin-top:24px;color:rgba(255,255,255,.77);font-size:clamp(16px,1.45vw,19px);line-height:1.55}
-.cinematic-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-.cinematic-action{min-height:48px;padding:0 20px;border-radius:999px;display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:700;transition:transform .2s ease,background-color .2s ease,border-color .2s ease,color .2s ease}
-.cinematic-action:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.cinematic-action-primary{background:#ff8a00;color:#0a1828}.cinematic-action-primary:hover{background:#ffb15f;transform:translateY(-2px)}
-.cinematic-action-secondary{border:1px solid rgba(255,255,255,.33);background:rgba(255,255,255,.08);backdrop-filter:blur(10px);color:#fff}.cinematic-action-secondary:hover{border-color:rgba(255,255,255,.78);background:rgba(255,255,255,.15);transform:translateY(-2px)}
-.cinematic-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}.cinematic-fact{border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(8,22,38,.34);backdrop-filter:blur(12px);padding:9px 12px;color:rgba(255,255,255,.84);font-size:12px;font-weight:600}
-.cinematic-fact strong{color:#fff}.cinematic-footer{position:absolute;z-index:2;right:20px;bottom:24px;left:20px;display:flex;align-items:end;justify-content:space-between;gap:20px}.cinematic-location{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.67);font:500 10px/1.4 'JetBrains Mono',monospace;letter-spacing:.13em;text-transform:uppercase}.cinematic-location i{color:#ff9a3d}.cinematic-timeline{width:min(260px,35vw)}.cinematic-progress-track{height:2px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.26)}.cinematic-progress-fill{display:block;width:100%;height:100%;background:#ff9a3d;transform:scaleX(0);transform-origin:left}.cinematic-progress-copy{display:flex;justify-content:space-between;margin-bottom:9px;color:rgba(255,255,255,.66);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.12em}.cinematic-scroll-hint{position:absolute;z-index:2;right:20px;top:50%;display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.62);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.12em;transform:rotate(90deg) translateX(50%);transform-origin:right top}
-@media(max-width:899px){.cinematic-hero,.cinematic-pin{min-height:720px}.cinematic-copy{padding-top:max(118px,16vh)}.cinematic-video{object-position:60% center}.cinematic-vignette{background:radial-gradient(circle at 62% 39%,transparent 0 22%,rgba(1,7,14,.24) 68%,rgba(1,7,14,.55) 100%)}.cinematic-title{font-size:clamp(48px,14vw,74px);max-width:520px}.cinematic-footer{bottom:20px}.cinematic-timeline{width:150px}.cinematic-scroll-hint{display:none}}
-@media(max-width:539px){.cinematic-copy{padding-top:128px}.cinematic-title{font-size:50px}.cinematic-body{font-size:16px;max-width:345px}.cinematic-facts{margin-top:26px}.cinematic-fact{padding:8px 10px;font-size:11px}.cinematic-footer{left:16px;right:16px}.cinematic-location{max-width:165px;font-size:9px}.cinematic-timeline{width:118px}.cinematic-actions{margin-top:24px}.cinematic-action{min-height:46px;padding:0 16px}}
-@media(prefers-reduced-motion:reduce){.grain,.cinematic-scroll-hint{animation:none;display:none}.cinematic-action{transition:none}.cinematic-video{filter:saturate(.92) contrast(1.03)}}
+/* ============ CINEMATIC SCROLL STORY ============ */
+.cinematic-story{position:relative;min-height:400svh;background:#06111e;color:#fff;isolation:isolate}
+.cinematic-canvas{position:sticky;top:0;height:100svh;overflow:hidden;background:#06111e}
+.cinematic-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;background:#06111e;filter:saturate(.9) contrast(1.08)}
+.cinematic-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(3,12,23,.88) 0%,rgba(3,12,23,.61) 34%,rgba(3,12,23,.19) 65%,rgba(3,12,23,.31) 100%),linear-gradient(0deg,rgba(3,12,23,.8) 0%,transparent 34%,rgba(3,12,23,.32) 100%)}
+.cinematic-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 57% 44%,transparent 0 34%,rgba(1,7,14,.15) 72%,rgba(1,7,14,.5) 100%)}
+.cinematic-facility-label{position:absolute;z-index:1;right:clamp(20px,4vw,64px);top:clamp(110px,16vh,158px);display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.7);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
+.cinematic-facility-label::before{content:"";width:28px;height:1px;background:#ff8a00}
+.cinematic-footer{position:absolute;z-index:1;right:clamp(16px,4vw,64px);bottom:clamp(18px,3vh,32px);left:clamp(16px,4vw,64px);display:flex;align-items:end;justify-content:space-between;gap:20px}.cinematic-location{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.67);font:500 10px/1.4 'JetBrains Mono',monospace;letter-spacing:.13em;text-transform:uppercase}.cinematic-location i{color:#ff9a3d}.cinematic-timeline{width:min(280px,34vw)}.cinematic-progress-track{height:2px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.26)}.cinematic-progress-fill{display:block;width:100%;height:100%;background:#ff8a00;transform:scaleX(0);transform-origin:left}.cinematic-progress-copy{display:flex;justify-content:space-between;margin-bottom:9px;color:rgba(255,255,255,.66);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.12em}
+.cinematic-story-track{position:relative;z-index:2;margin-top:-100svh;pointer-events:none}
+.cinematic-chapter{display:flex;min-height:100svh;align-items:center;padding:clamp(96px,13vh,150px) clamp(20px,7vw,104px) clamp(84px,12vh,128px);pointer-events:none}
+.cinematic-chapter--left{justify-content:flex-start}.cinematic-chapter--right{justify-content:flex-end}.cinematic-chapter--center{justify-content:center;text-align:center}
+.cinematic-copy,.cinematic-card{pointer-events:auto}.cinematic-copy{width:min(720px,100%)}
+.cinematic-kicker{display:inline-flex;align-items:center;gap:10px;color:rgba(255,255,255,.76);font:600 11px/1.2 'JetBrains Mono',monospace;letter-spacing:.17em;text-transform:uppercase}.cinematic-kicker::before{content:"";width:32px;height:1px;background:#ff8a00}
+.cinematic-title{max-width:700px;margin:20px 0 0;font-family:'Fraunces',Georgia,serif;font-size:clamp(52px,7.2vw,108px);font-weight:700;letter-spacing:-.055em;line-height:.86;text-wrap:balance}.cinematic-title em{font-style:normal;color:#ff9a3d}
+.cinematic-body{max-width:550px;margin-top:24px;color:rgba(255,255,255,.8);font-size:clamp(16px,1.45vw,19px);line-height:1.55}.cinematic-chapter--center .cinematic-body{margin-right:auto;margin-left:auto}
+.cinematic-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.cinematic-chapter--center .cinematic-actions{justify-content:center}.cinematic-action{min-height:48px;padding:0 20px;border-radius:999px;display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:700;transition:transform .2s ease,background-color .2s ease,border-color .2s ease,color .2s ease}.cinematic-action:focus-visible{outline:3px solid #fff;outline-offset:3px}.cinematic-action-primary{background:#ff8a00;color:#0a1828}.cinematic-action-primary:hover{background:#ffb15f;transform:translateY(-2px)}.cinematic-action-secondary{border:1px solid rgba(255,255,255,.33);background:rgba(255,255,255,.08);backdrop-filter:blur(10px);color:#fff}.cinematic-action-secondary:hover{border-color:rgba(255,255,255,.78);background:rgba(255,255,255,.15);transform:translateY(-2px)}
+.cinematic-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}.cinematic-fact{border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(8,22,38,.4);backdrop-filter:blur(12px);padding:9px 12px;color:rgba(255,255,255,.86);font-size:12px;font-weight:600}.cinematic-fact strong{color:#fff}
+.cinematic-card{width:min(390px,100%);border:1px solid rgba(255,255,255,.21);border-radius:24px;background:linear-gradient(145deg,rgba(9,28,50,.7),rgba(7,17,30,.52));box-shadow:0 24px 70px rgba(0,0,0,.26);backdrop-filter:blur(17px) saturate(120%);padding:clamp(22px,3vw,34px)}
+.cinematic-card-index{display:flex;align-items:center;gap:9px;color:#ff9a3d;font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:.14em}.cinematic-card-index::before{content:"";width:24px;height:1px;background:currentColor}.cinematic-card h2{max-width:360px;margin:19px 0 0;font-family:'Fraunces',Georgia,serif;font-size:clamp(32px,3.7vw,54px);font-weight:700;letter-spacing:-.045em;line-height:.92}.cinematic-card p{margin-top:17px;color:rgba(255,255,255,.76);font-size:15px;line-height:1.55}.cinematic-card-list{display:grid;gap:11px;margin:25px 0 0;border-top:1px solid rgba(255,255,255,.16);padding-top:18px;color:rgba(255,255,255,.88);font-size:13px;font-weight:600}.cinematic-card-list span{display:flex;align-items:center;gap:9px}.cinematic-card-list i{width:14px;height:14px;color:#ff9a3d}
+.cinematic-chapter--closing .cinematic-copy{max-width:780px}.cinematic-chapter--closing .cinematic-title{max-width:780px}.cinematic-scroll-cue{display:inline-flex;align-items:center;gap:10px;margin-top:28px;color:rgba(255,255,255,.6);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.13em}.cinematic-scroll-cue i{width:15px;height:15px;color:#ff9a3d}
+@media(max-width:899px){.cinematic-story{min-height:360svh}.cinematic-canvas{height:100svh}.cinematic-video{object-position:57% center}.cinematic-shade{background:linear-gradient(90deg,rgba(3,12,23,.76),rgba(3,12,23,.25)),linear-gradient(0deg,rgba(3,12,23,.87),transparent 46%,rgba(3,12,23,.35))}.cinematic-vignette{background:radial-gradient(circle at 57% 42%,transparent 0 28%,rgba(1,7,14,.17) 70%,rgba(1,7,14,.56) 100%)}.cinematic-chapter{min-height:90svh;padding:112px 22px 102px}.cinematic-chapter--right{justify-content:flex-start}.cinematic-facility-label{right:18px;top:92px;font-size:9px}.cinematic-title{font-size:clamp(50px,13vw,78px);max-width:560px}.cinematic-card{max-width:360px}.cinematic-footer{bottom:18px}.cinematic-timeline{width:150px}.cinematic-location{max-width:200px}.cinematic-scroll-cue{margin-top:20px}}
+@media(max-width:539px){.cinematic-story{min-height:380svh}.cinematic-chapter{padding:106px 18px 92px}.cinematic-title{font-size:50px}.cinematic-body{max-width:345px;font-size:16px}.cinematic-facts{margin-top:25px}.cinematic-fact{padding:8px 10px;font-size:11px}.cinematic-facility-label{display:none}.cinematic-card{border-radius:20px;padding:22px}.cinematic-card h2{font-size:36px}.cinematic-footer{left:16px;right:16px}.cinematic-location{max-width:165px;font-size:9px}.cinematic-timeline{width:118px}.cinematic-actions{margin-top:24px}.cinematic-action{min-height:46px;padding:0 16px}}
+@media(prefers-reduced-motion:reduce){.grain{animation:none;display:none}.cinematic-action{transition:none}.cinematic-video{filter:saturate(.92) contrast(1.03)}}
 /* ============ HIGH IMPACT LAYER ============ */
 body.locked{overflow:hidden}
 @media(pointer:fine){ body, body a, body button, body input, body select, body textarea{cursor:none} }
@@ -292,40 +293,71 @@ body{padding-bottom:70px}
   </div>
 </nav>
 
-<!-- CINEMATIC HERO -->
-<section id="cinematicHero" class="cinematic-hero" aria-labelledby="cinematicHeroTitle">
-  <div class="cinematic-pin">
-    <video id="cinematicVideo" class="cinematic-video" muted playsinline autoplay preload="auto" poster="assets/video/repsa-roll-off-scroll-poster.jpg" aria-describedby="cinematicHeroDescription">
-      <source src="assets/video/repsa-roll-off-scroll.mp4" type="video/mp4">
+<!-- CINEMATIC SCROLL STORY -->
+<section id="cinematicHero" class="cinematic-story" aria-labelledby="cinematicHeroTitle">
+  <div class="cinematic-canvas" aria-hidden="true">
+    <video id="cinematicVideo" class="cinematic-video" muted playsinline autoplay loop preload="metadata" poster="assets/video/repsa-drone-campus-scroll-web-poster.jpg">
+      <source src="assets/video/repsa-drone-campus-scroll-web.mp4" type="video/mp4">
     </video>
-    <div class="cinematic-shade" aria-hidden="true"></div>
-    <div class="cinematic-vignette" aria-hidden="true"></div>
+    <div class="cinematic-shade"></div>
+    <div class="cinematic-vignette"></div>
+    <div class="cinematic-facility-label">PLANTA · TOLUCA, MÉXICO</div>
+    <div class="cinematic-footer">
+      <div class="cinematic-location"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Recorrido por la planta REPSA</div>
+      <div class="cinematic-timeline">
+        <div class="cinematic-progress-copy"><span id="cinematicProgressLabel">RECORRIDO 01</span><span id="cinematicProgressValue">00</span></div>
+        <div class="cinematic-progress-track"><span id="cinematicProgressFill" class="cinematic-progress-fill"></span></div>
+      </div>
+    </div>
+  </div>
 
-    <div class="relative z-[2] max-w-[1360px] h-full mx-auto px-5 lg:px-6">
+  <div class="cinematic-story-track">
+    <article class="cinematic-chapter cinematic-chapter--left" data-cinematic-chapter="1">
       <div class="cinematic-copy">
         <p class="cinematic-kicker">REPSA · TOLUCA, EDOMEX</p>
         <h1 id="cinematicHeroTitle" class="cinematic-title">Ingeniería que <em>mueve</em> ciudades.</h1>
-        <p id="cinematicHeroDescription" class="cinematic-body">Carrocerías y equipos para recolección, carga y transporte fabricados para el trabajo que no se detiene.</p>
-        <div class="cinematic-actions">
-          <a href="#productos" class="cinematic-action cinematic-action-primary">Explorar soluciones <i data-lucide="arrow-down-right" class="w-4 h-4"></i></a>
-          <a href="#contacto" class="cinematic-action cinematic-action-secondary">Solicitar cotización <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
-        </div>
+        <p class="cinematic-body">Carrocerías, equipos de recolección y soluciones de carga fabricadas para el trabajo que no se detiene.</p>
         <div class="cinematic-facts" aria-label="Datos destacados de REPSA">
           <span class="cinematic-fact"><strong>25 años</strong> de experiencia</span>
           <span class="cinematic-fact">ISO 9001:2015</span>
           <span class="cinematic-fact">Hecho en México</span>
         </div>
+        <div class="cinematic-scroll-cue" aria-hidden="true"><i data-lucide="arrow-down"></i> DESLIZA PARA RECORRER LA PLANTA</div>
       </div>
-    </div>
+    </article>
 
-    <div class="cinematic-footer">
-      <div class="cinematic-location"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Planta Toluca · fabricación especializada</div>
-      <div class="cinematic-timeline" aria-hidden="true">
-        <div class="cinematic-progress-copy"><span>RECORRIDO 01</span><span id="cinematicProgressValue">00</span></div>
-        <div class="cinematic-progress-track"><span id="cinematicProgressFill" class="cinematic-progress-fill"></span></div>
+    <article class="cinematic-chapter cinematic-chapter--right" data-cinematic-chapter="2">
+      <div class="cinematic-card">
+        <p class="cinematic-card-index">01 · CAPACIDAD</p>
+        <h2>Del diseño al patio.</h2>
+        <p>Un recorrido por las unidades y la infraestructura donde cada proyecto toma forma.</p>
+        <div class="cinematic-card-list" aria-label="Capacidades REPSA">
+          <span><i data-lucide="check"></i> Carrocerías y equipos especializados</span>
+          <span><i data-lucide="check"></i> Plataformas y remolques</span>
+          <span><i data-lucide="check"></i> Soluciones para residuos y carga</span>
+        </div>
       </div>
-    </div>
-    <div class="cinematic-scroll-hint" aria-hidden="true"><span>DESLIZA PARA RECORRER</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></div>
+    </article>
+
+    <article class="cinematic-chapter cinematic-chapter--left" data-cinematic-chapter="3">
+      <div class="cinematic-card">
+        <p class="cinematic-card-index">02 · FABRICACIÓN</p>
+        <h2>El detalle sigue el ritmo del trabajo.</h2>
+        <p>La planta, las naves y las unidades terminadas cuentan una misma historia: ingeniería construida para operar.</p>
+      </div>
+    </article>
+
+    <article class="cinematic-chapter cinematic-chapter--center cinematic-chapter--closing" data-cinematic-chapter="4">
+      <div class="cinematic-copy">
+        <p class="cinematic-kicker">PROYECTOS A LA MEDIDA</p>
+        <h2 class="cinematic-title">Equipos que siguen el ritmo del trabajo.</h2>
+        <p class="cinematic-body">Conoce las soluciones REPSA para carga, transporte, recolección y operación industrial.</p>
+        <div class="cinematic-actions">
+          <a href="#productos" class="cinematic-action cinematic-action-primary">Explorar soluciones <i data-lucide="arrow-down-right" class="w-4 h-4"></i></a>
+          <a href="#contacto" class="cinematic-action cinematic-action-secondary">Cotizar mi proyecto <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -1284,62 +1316,56 @@ lenis.on('scroll', ({progress})=>{ prog.style.transform = `scaleX(${progress})` 
 gsap.registerPlugin(ScrollTrigger);
 lenis.on('scroll', ScrollTrigger.update);
 
-// CINEMATIC HERO — desktop scroll scrubs the locally hosted, keyframe-dense video.
-// Mobile keeps a lightweight muted playback; reduced-motion visitors retain the poster.
+// CINEMATIC STORY — the normal page scroll passes over a CSS-sticky canvas.
+// Native looping playback stays fluid while the page controls only its chapters.
 function initCinematicHero(){
   const section = document.getElementById('cinematicHero');
   const video = document.getElementById('cinematicVideo');
-  const copy = section?.querySelector('.cinematic-copy');
   const fill = document.getElementById('cinematicProgressFill');
   const value = document.getElementById('cinematicProgressValue');
+  const label = document.getElementById('cinematicProgressLabel');
+  const chapters = [...document.querySelectorAll('[data-cinematic-chapter]')];
   if(!section || !video || section.dataset.ready) return;
   section.dataset.ready = 'true';
   video.muted = true;
 
-  const setProgress = progress => {
-    const clamped = Math.max(0, Math.min(1, progress));
-    if(fill) fill.style.transform = `scaleX(${clamped})`;
-    if(value) value.textContent = String(Math.round(clamped * 100)).padStart(2, '0');
-  };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const desktop = window.matchMedia('(min-width: 900px)');
+  const chapterLabels = ['RECORRIDO 01', 'CAPACIDAD', 'FABRICACIÓN', 'SOLUCIONES'];
+  let frame = 0;
 
+  const update = () => {
+    frame = 0;
+    const viewport = window.innerHeight || document.documentElement.clientHeight;
+    const distance = Math.max(1, section.offsetHeight - viewport);
+    const progress = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / distance));
+    // Four viewport chapters occupy three scroll-lengths after the first one.
+    const activeIndex = Math.min(chapters.length - 1, Math.floor(progress * (chapters.length - 1) + .001));
+    if(fill) fill.style.transform = `scaleX(${progress})`;
+    if(value) value.textContent = String(Math.round(progress * 100)).padStart(2, '0');
+    if(label) label.textContent = chapterLabels[activeIndex] || 'RECORRIDO';
+    chapters.forEach((chapter, index) => chapter.toggleAttribute('data-active', index === activeIndex));
+
+  };
+  const requestUpdate = () => {
+    if(!frame) frame = requestAnimationFrame(update);
+  };
   const begin = () => {
     if(reduceMotion.matches){
       video.pause();
-      video.removeAttribute('autoplay');
       return;
     }
-    if(!desktop.matches){
-      video.play().catch(()=>{});
-      return;
-    }
-
-    const endTime = Math.max(.05, video.duration - .06);
-    video.pause();
-    video.currentTime = .001;
-    const sequence = gsap.timeline({
-      scrollTrigger:{
-        trigger: section,
-        start: 'top top',
-        end: '+=140%',
-        pin: true,
-        pinSpacing: true,
-        scrub: .35,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: self => setProgress(self.progress)
-      }
-    });
-    sequence.to(video, {currentTime:endTime, duration:1, ease:'none'}, 0);
-    if(copy) sequence.to(copy, {yPercent:-5, opacity:.94, duration:1, ease:'none'}, 0);
-    ScrollTrigger.refresh();
+    video.play().catch(()=>{});
+    update();
   };
 
-  if(video.readyState >= 1) begin();
-  else video.addEventListener('loadedmetadata', begin, {once:true});
+  if(video.readyState >= 2) begin();
+  else video.addEventListener('loadeddata', begin, {once:true});
+  window.addEventListener('resize', requestUpdate, {passive:true});
+  window.addEventListener('scroll', requestUpdate, {passive:true});
+  lenis.on('scroll', requestUpdate);
+  reduceMotion.addEventListener?.('change', begin);
   document.addEventListener('visibilitychange', ()=>{
-    if(document.hidden && desktop.matches) video.pause();
+    if(document.hidden) video.pause();
   });
 }
 
