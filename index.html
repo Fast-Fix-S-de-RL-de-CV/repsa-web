@@ -296,7 +296,7 @@ body{padding-bottom:70px}
 <!-- CINEMATIC SCROLL STORY -->
 <section id="cinematicHero" class="cinematic-story" aria-labelledby="cinematicHeroTitle">
   <div class="cinematic-canvas" aria-hidden="true">
-    <video id="cinematicVideo" class="cinematic-video" muted playsinline autoplay loop preload="metadata" poster="assets/video/repsa-drone-campus-scroll-web-poster.jpg">
+    <video id="cinematicVideo" class="cinematic-video" muted playsinline webkit-playsinline preload="auto" poster="assets/video/repsa-drone-campus-scroll-web-poster.jpg">
       <source src="assets/video/repsa-drone-campus-scroll-web.mp4" type="video/mp4">
     </video>
     <div class="cinematic-shade"></div>
@@ -1411,18 +1411,45 @@ function initCinematicHero(){
   if(!section || !video || section.dataset.ready) return;
   section.dataset.ready = 'true';
   video.muted = true;
+  video.defaultMuted = true;
+  video.loop = false;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const desktop = window.matchMedia('(min-width: 900px)');
   const chapterLabels = ['RECORRIDO 01', 'CAPACIDAD', 'FABRICACIÓN', 'SOLUCIONES'];
   let frame = 0;
   let videoScrollTween;
+  let mobileVideoTrigger;
+  let seekInFlight = false;
+  let queuedVideoTime = null;
+  let layoutRefresh;
+
+  const videoEndTime = () => Math.max(.05, (Number.isFinite(video.duration) ? video.duration : 0) - .05);
+  const queueLatestSeek = (time) => {
+    if(reduceMotion.matches || desktop.matches || video.readyState < 1) return;
+    queuedVideoTime = Math.max(0, Math.min(videoEndTime(), time));
+    if(seekInFlight) return;
+    if(Math.abs(video.currentTime - queuedVideoTime) < 1 / 24){
+      queuedVideoTime = null;
+      return;
+    }
+    const target = queuedVideoTime;
+    queuedVideoTime = null;
+    seekInFlight = true;
+    try { video.currentTime = target; }
+    catch(_) { seekInFlight = false; }
+  };
+  video.addEventListener('seeked', ()=>{
+    seekInFlight = false;
+    if(queuedVideoTime !== null) queueLatestSeek(queuedVideoTime);
+  });
 
   const update = () => {
     frame = 0;
     const viewport = window.innerHeight || document.documentElement.clientHeight;
     const distance = Math.max(1, section.offsetHeight - viewport);
     const progress = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / distance));
+    if(!desktop.matches && !reduceMotion.matches) queueLatestSeek(progress * videoEndTime());
     // Four viewport chapters occupy three scroll-lengths after the first one.
     const activeIndex = Math.min(chapters.length - 1, Math.floor(progress * (chapters.length - 1) + .001));
     if(fill) fill.style.transform = `scaleX(${progress})`;
@@ -1434,19 +1461,42 @@ function initCinematicHero(){
   const requestUpdate = () => {
     if(!frame) frame = requestAnimationFrame(update);
   };
-  const begin = () => {
-    if(reduceMotion.matches){
-      video.pause();
-      return;
+  const releaseVideoScroll = () => {
+    if(videoScrollTween){
+      videoScrollTween.scrollTrigger?.kill();
+      videoScrollTween.kill();
+      videoScrollTween = null;
     }
-    if(!desktop.matches){
-      video.play().catch(()=>{});
+    if(mobileVideoTrigger){
+      mobileVideoTrigger.kill();
+      mobileVideoTrigger = null;
+    }
+    seekInFlight = false;
+    queuedVideoTime = null;
+  };
+  const begin = () => {
+    releaseVideoScroll();
+    video.pause();
+    if(reduceMotion.matches){
+      video.currentTime = 0;
       update();
       return;
     }
-    video.pause();
-    if(videoScrollTween) videoScrollTween.kill();
-    const endTime = Math.max(.05, video.duration - .05);
+    if(!desktop.matches){
+      // Mobile browsers can backlog rapid currentTime writes. This trigger sends
+      // only the latest requested frame while the previous seek is resolving.
+      mobileVideoTrigger = ScrollTrigger.create({
+        trigger:section,
+        start:'top top',
+        end:'bottom bottom',
+        onUpdate:self=>queueLatestSeek(self.progress * videoEndTime()),
+        onRefresh:self=>queueLatestSeek(self.progress * videoEndTime())
+      });
+      update();
+      ScrollTrigger.refresh();
+      return;
+    }
+    const endTime = videoEndTime();
     videoScrollTween = gsap.to(video, {
       currentTime:endTime,
       duration:1,
@@ -1465,14 +1515,26 @@ function initCinematicHero(){
 
   if(video.readyState >= 2) begin();
   else video.addEventListener('loadeddata', begin, {once:true});
-  window.addEventListener('resize', requestUpdate, {passive:true});
+  const refreshLayout = () => {
+    requestUpdate();
+    clearTimeout(layoutRefresh);
+    layoutRefresh = setTimeout(()=>{
+      ScrollTrigger.refresh();
+      requestUpdate();
+    }, 80);
+  };
+  window.addEventListener('resize', refreshLayout, {passive:true});
+  window.addEventListener('orientationchange', refreshLayout, {passive:true});
+  window.visualViewport?.addEventListener('resize', refreshLayout, {passive:true});
   desktop.addEventListener?.('change', begin);
   window.addEventListener('scroll', requestUpdate, {passive:true});
   lenis.on('scroll', requestUpdate);
   reduceMotion.addEventListener?.('change', begin);
   document.addEventListener('visibilitychange', ()=>{
     if(document.hidden) video.pause();
+    else requestUpdate();
   });
+  video.addEventListener('error', ()=>{ video.pause(); });
 }
 
 gsap.utils.toArray('[data-count]').forEach(el=>{
