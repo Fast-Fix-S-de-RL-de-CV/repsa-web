@@ -1429,12 +1429,19 @@ function initCinematicHero(){
   let mobileVideoTrigger;
   let seekInFlight = false;
   let queuedVideoTime = null;
+  let lastQueuedVideoTime = -1;
   let layoutRefresh;
 
   const videoEndTime = () => Math.max(.05, (Number.isFinite(video.duration) ? video.duration : 0) - .05);
-  const queueLatestSeek = (time) => {
+  const queueLatestSeek = (time, force = false) => {
     if(reduceMotion.matches || desktop.matches || video.readyState < 1) return;
-    queuedVideoTime = Math.max(0, Math.min(videoEndTime(), time));
+    const nextTime = Math.max(0, Math.min(videoEndTime(), time));
+    // Requesting more positions than the clip's 24 fps can decode only creates
+    // a seek backlog on touch browsers. Keep the visual motion responsive while
+    // retaining the most recent position at the end of the gesture.
+    if(!force && Math.abs(nextTime - lastQueuedVideoTime) < 1 / 18) return;
+    lastQueuedVideoTime = nextTime;
+    queuedVideoTime = nextTime;
     if(seekInFlight) return;
     if(Math.abs(video.currentTime - queuedVideoTime) < 1 / 24){
       queuedVideoTime = null;
@@ -1448,7 +1455,7 @@ function initCinematicHero(){
   };
   video.addEventListener('seeked', ()=>{
     seekInFlight = false;
-    if(queuedVideoTime !== null) queueLatestSeek(queuedVideoTime);
+    if(queuedVideoTime !== null) queueLatestSeek(queuedVideoTime, true);
   });
 
   const update = () => {
@@ -1456,7 +1463,6 @@ function initCinematicHero(){
     const viewport = window.innerHeight || document.documentElement.clientHeight;
     const distance = Math.max(1, section.offsetHeight - viewport);
     const progress = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / distance));
-    if(!desktop.matches && !reduceMotion.matches) queueLatestSeek(progress * videoEndTime());
     // Four viewport chapters occupy three scroll-lengths after the first one.
     const activeIndex = Math.min(chapters.length - 1, Math.floor(progress * (chapters.length - 1) + .001));
     if(fill) fill.style.transform = `scaleX(${progress})`;
@@ -1480,6 +1486,7 @@ function initCinematicHero(){
     }
     seekInFlight = false;
     queuedVideoTime = null;
+    lastQueuedVideoTime = -1;
   };
   const begin = () => {
     releaseVideoScroll();
@@ -1490,15 +1497,28 @@ function initCinematicHero(){
       return;
     }
     if(!desktop.matches){
-      // Mobile browsers can backlog rapid currentTime writes. This trigger sends
-      // only the latest requested frame while the previous seek is resolving.
+      // Touch browsers need the decoder prepared before scroll-controlled seeks.
+      // Muted inline playback is permitted; it is paused immediately and the
+      // ScrollTrigger below controls the visible frame from that point forward.
       mobileVideoTrigger = ScrollTrigger.create({
         trigger:section,
         start:'top top',
         end:'bottom bottom',
         onUpdate:self=>queueLatestSeek(self.progress * videoEndTime()),
-        onRefresh:self=>queueLatestSeek(self.progress * videoEndTime())
+        onRefresh:self=>queueLatestSeek(self.progress * videoEndTime(), true)
       });
+      const initialProgress = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / Math.max(1, section.offsetHeight - window.innerHeight)));
+      const prime = () => {
+        const playAttempt = video.play();
+        const settle = () => {
+          video.pause();
+          queueLatestSeek(initialProgress * videoEndTime(), true);
+        };
+        if(playAttempt && typeof playAttempt.then === 'function') playAttempt.then(settle, settle);
+        else settle();
+      };
+      if(video.readyState >= 3) prime();
+      else video.addEventListener('canplay', prime, {once:true});
       update();
       ScrollTrigger.refresh();
       return;
@@ -1520,8 +1540,8 @@ function initCinematicHero(){
     ScrollTrigger.refresh();
   };
 
-  if(video.readyState >= 2) begin();
-  else video.addEventListener('loadeddata', begin, {once:true});
+  if(video.readyState >= 1) begin();
+  else video.addEventListener('loadedmetadata', begin, {once:true});
   const refreshLayout = () => {
     requestUpdate();
     clearTimeout(layoutRefresh);
@@ -1821,7 +1841,18 @@ const preloader = document.getElementById('preloader');
 const preFill = document.getElementById('preFill');
 function boot(){
   lenis.start();
-  if(shouldStartAtTop) lenis.scrollTo(0, {immediate:true});
+  if(shouldStartAtTop){
+    const settleAtTop = () => {
+      window.scrollTo(0, 0);
+      lenis.scrollTo(0, {immediate:true, force:true});
+    };
+    // Native restoration can land after the initial inline reset, particularly
+    // when a visitor reopens the site from a browser tab. Settle again after
+    // Lenis is running and after two paints, without affecting real #anchors.
+    settleAtTop();
+    requestAnimationFrame(()=>requestAnimationFrame(settleAtTop));
+    window.addEventListener('load', ()=>requestAnimationFrame(()=>requestAnimationFrame(settleAtTop)), {once:true});
+  }
   initCinematicHero();
   featAutoplay();
 }
