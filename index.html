@@ -1398,6 +1398,16 @@ body{padding-bottom:70px}
 <script>
 lucide.createIcons();
 
+// Every fresh visit without a fragment starts at the top. This must run before
+// Lenis is stopped by the preloader, otherwise browser scroll restoration can
+// leave a new visitor at a stale document offset.
+if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+const shouldStartAtTop = !window.location.hash || window.location.hash === '#';
+if(shouldStartAtTop) window.scrollTo(0, 0);
+window.addEventListener('pageshow', event => {
+  if(shouldStartAtTop && event.persisted) window.scrollTo(0, 0);
+});
+
 // LENIS
 const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
 function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
@@ -1902,6 +1912,7 @@ const preloader = document.getElementById('preloader');
 const preFill = document.getElementById('preFill');
 function boot(){
   lenis.start();
+  if(shouldStartAtTop) lenis.scrollTo(0, {immediate:true});
   initCinematicHero();
   initCinematicBridge();
   initCinematicHeritage();
