@@ -1591,6 +1591,40 @@ function initCinematicHeritage(){
   });
 }
 
+// Keep hash navigation reliable when a cinematic section is taller than the viewport.
+// Native anchor timing can otherwise race the lazy video/ScrollTrigger layout refresh.
+function initAnchorNavigation(){
+  if(document.documentElement.dataset.anchorNavigationReady) return;
+  document.documentElement.dataset.anchorNavigationReady = 'true';
+
+  const getTarget = hash => {
+    if(!hash || hash === '#') return null;
+    try { return document.querySelector(hash); }
+    catch(_) { return null; }
+  };
+  const goToHash = (hash, immediate = false) => {
+    const target = getTarget(hash);
+    if(!target) return false;
+    const navOffset = document.getElementById('nav')?.getBoundingClientRect().height || 0;
+    const destination = Math.max(0, window.scrollY + target.getBoundingClientRect().top - navOffset);
+    lenis.scrollTo(destination, immediate ? {immediate:true} : {duration:1.05});
+    return true;
+  };
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    const hash = link?.getAttribute('href');
+    if(!link || !getTarget(hash)) return;
+    event.preventDefault();
+    goToHash(hash);
+    if(window.location.hash !== hash) history.pushState(null, '', hash);
+  });
+  window.addEventListener('hashchange', ()=>goToHash(window.location.hash));
+  if(window.location.hash && window.location.hash !== '#'){
+    requestAnimationFrame(()=>requestAnimationFrame(()=>goToHash(window.location.hash, true)));
+  }
+}
+
 gsap.utils.toArray('[data-count]').forEach(el=>{
   const to = parseInt(el.dataset.count,10);
   gsap.fromTo(el, {innerText:0}, {
@@ -1871,6 +1905,7 @@ function boot(){
   initCinematicHero();
   initCinematicBridge();
   initCinematicHeritage();
+  initAnchorNavigation();
   featAutoplay();
 }
 if(preloader){
