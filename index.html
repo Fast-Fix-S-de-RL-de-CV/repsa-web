@@ -134,9 +134,11 @@ tailwind.config = {
 .cinematic-card{width:min(390px,100%);border:1px solid rgba(255,255,255,.21);border-radius:24px;background:linear-gradient(145deg,rgba(9,28,50,.7),rgba(7,17,30,.52));box-shadow:0 24px 70px rgba(0,0,0,.26);backdrop-filter:blur(17px) saturate(120%);padding:clamp(22px,3vw,34px)}
 .cinematic-card-index{display:flex;align-items:center;gap:9px;color:#ff9a3d;font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:.14em}.cinematic-card-index::before{content:"";width:24px;height:1px;background:currentColor}.cinematic-card h2{max-width:360px;margin:19px 0 0;font-family:'Fraunces',Georgia,serif;font-size:clamp(32px,3.7vw,54px);font-weight:700;letter-spacing:-.045em;line-height:.92}.cinematic-card p{margin-top:17px;color:rgba(255,255,255,.76);font-size:15px;line-height:1.55}.cinematic-card-list{display:grid;gap:11px;margin:25px 0 0;border-top:1px solid rgba(255,255,255,.16);padding-top:18px;color:rgba(255,255,255,.88);font-size:13px;font-weight:600}.cinematic-card-list span{display:flex;align-items:center;gap:9px}.cinematic-card-list i{width:14px;height:14px;color:#ff9a3d}
 .cinematic-chapter--closing .cinematic-copy{max-width:780px}.cinematic-chapter--closing .cinematic-title{max-width:780px}.cinematic-scroll-cue{display:inline-flex;align-items:center;gap:10px;margin-top:28px;color:rgba(255,255,255,.6);font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.13em}.cinematic-scroll-cue i{width:15px;height:15px;color:#ff9a3d}
+.cinematic-bridge{--bridge-progress:0;position:relative;height:36svh;overflow:hidden;background:#06111e;isolation:isolate}.cinematic-bridge::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(3,12,23,.3),transparent 40%,rgba(3,12,23,.28)),linear-gradient(0deg,rgba(3,12,23,.48),transparent 44%,rgba(3,12,23,.42))}.cinematic-bridge__out,.cinematic-bridge__in{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;will-change:transform,opacity}.cinematic-bridge__out{opacity:calc(1 - var(--bridge-progress));transform:scale(calc(1 + var(--bridge-progress) * .08))}.cinematic-bridge__in{opacity:var(--bridge-progress);transform:scale(calc(1.08 - var(--bridge-progress) * .08))}.cinematic-story--heritage{background:#081728}.cinematic-story--heritage .cinematic-video{object-position:center 54%;filter:saturate(.82) contrast(1.13) brightness(.94)}.cinematic-story--heritage .cinematic-shade{background:linear-gradient(90deg,rgba(2,11,21,.92) 0%,rgba(2,11,21,.63) 37%,rgba(2,11,21,.12) 72%,rgba(2,11,21,.32) 100%),linear-gradient(0deg,rgba(2,11,21,.78) 0%,transparent 38%,rgba(2,11,21,.38) 100%)}.cinematic-story--heritage .cinematic-title{max-width:790px;font-size:clamp(48px,6vw,84px);line-height:.9}.cinematic-story--heritage .cinematic-facts{margin-top:30px}.cinematic-story--heritage .cinematic-chapter:first-child{align-items:flex-start;padding-top:clamp(118px,16vh,160px)}
 @media(max-width:899px){.cinematic-story{min-height:360svh}.cinematic-canvas{height:100svh}.cinematic-video{object-position:57% center}.cinematic-shade{background:linear-gradient(90deg,rgba(3,12,23,.76),rgba(3,12,23,.25)),linear-gradient(0deg,rgba(3,12,23,.87),transparent 46%,rgba(3,12,23,.35))}.cinematic-vignette{background:radial-gradient(circle at 57% 42%,transparent 0 28%,rgba(1,7,14,.17) 70%,rgba(1,7,14,.56) 100%)}.cinematic-chapter{min-height:90svh;padding:112px 22px 102px}.cinematic-chapter--right{justify-content:flex-start}.cinematic-facility-label{right:18px;top:92px;font-size:9px}.cinematic-title{font-size:clamp(50px,13vw,78px);max-width:560px}.cinematic-card{max-width:360px}.cinematic-footer{bottom:18px}.cinematic-timeline{width:150px}.cinematic-location{max-width:200px}.cinematic-scroll-cue{margin-top:20px}}
-@media(max-width:539px){.cinematic-story{min-height:380svh}.cinematic-chapter{padding:106px 18px 92px}.cinematic-title{font-size:50px}.cinematic-body{max-width:345px;font-size:16px}.cinematic-facts{margin-top:25px}.cinematic-fact{padding:8px 10px;font-size:11px}.cinematic-facility-label{display:none}.cinematic-card{border-radius:20px;padding:22px}.cinematic-card h2{font-size:36px}.cinematic-footer{left:16px;right:16px}.cinematic-location{max-width:165px;font-size:9px}.cinematic-timeline{width:118px}.cinematic-actions{margin-top:24px}.cinematic-action{min-height:46px;padding:0 16px}}
-@media(prefers-reduced-motion:reduce){.grain{animation:none;display:none}.cinematic-action{transition:none}.cinematic-video{filter:saturate(.92) contrast(1.03)}}
+@media(max-width:899px){.cinematic-bridge{height:30svh}.cinematic-story--heritage .cinematic-video{object-position:62% center}.cinematic-story--heritage .cinematic-shade{background:linear-gradient(90deg,rgba(2,11,21,.8),rgba(2,11,21,.22)),linear-gradient(0deg,rgba(2,11,21,.9),transparent 48%,rgba(2,11,21,.34))}.cinematic-story--heritage .cinematic-chapter:first-child{padding-top:124px}}
+@media(max-width:539px){.cinematic-story{min-height:380svh}.cinematic-chapter{padding:106px 18px 92px}.cinematic-title{font-size:50px}.cinematic-body{max-width:345px;font-size:16px}.cinematic-facts{margin-top:25px}.cinematic-fact{padding:8px 10px;font-size:11px}.cinematic-facility-label{display:none}.cinematic-card{border-radius:20px;padding:22px}.cinematic-card h2{font-size:36px}.cinematic-footer{left:16px;right:16px}.cinematic-location{max-width:165px;font-size:9px}.cinematic-timeline{width:118px}.cinematic-actions{margin-top:24px}.cinematic-action{min-height:46px;padding:0 16px}.cinematic-bridge{height:24svh}}
+@media(prefers-reduced-motion:reduce){.grain{animation:none;display:none}.cinematic-action{transition:none}.cinematic-video{filter:saturate(.92) contrast(1.03)}.cinematic-bridge__out{opacity:0}.cinematic-bridge__in{opacity:1;transform:scale(1)}}
 /* ============ HIGH IMPACT LAYER ============ */
 body.locked{overflow:hidden}
 @media(pointer:fine){ body, body a, body button, body input, body select, body textarea{cursor:none} }
@@ -361,6 +363,12 @@ body{padding-bottom:70px}
   </div>
 </section>
 
+<!-- CINEMATIC MATCH CUT — end of the campus flyover to the next company chapter. -->
+<div id="cinematicBridge" class="cinematic-bridge" aria-hidden="true">
+  <img class="cinematic-bridge__out" src="assets/video/repsa-drone-campus-scroll-end.jpg" alt="">
+  <img class="cinematic-bridge__in" src="assets/video/repsa-roll-off-scroll-poster.jpg" alt="">
+</div>
+
 <!-- Legacy hero retained inertly for safe rollback; the cinematic hero above is the published experience. -->
 <template id="legacyHero">
 <header class="relative overflow-hidden bg-white">
@@ -538,68 +546,90 @@ body{padding-bottom:70px}
 </header>
 </template>
 
-<!-- HISTORIA / STATS -->
-<section id="historia" class="max-w-[1360px] mx-auto px-5 lg:px-6 py-10 lg:py-14">
-  <div class="grid lg:grid-cols-12 gap-6 lg:gap-8">
-    <div class="lg:col-span-5">
-      <div class="sticky top-[88px]">
-        <div class="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.16em] text-reblue font-bold"><span class="w-6 h-px bg-reblue"></span> NUESTRA HISTORIA</div>
-        <h2 class="mt-3 font-display font-extrabold text-[32px] lg:text-[42px] leading-[0.95] tracking-tight">
-          25 años<br>construyendo<br><span class="text-reblue">confianza nacional.</span>
-        </h2>
-        <p class="mt-4 text-[15px] leading-6 text-ink/65">
-          Empresa mexiquense especializada en <b>recolectores para residuos sólidos urbanos, tanques pipa elípticos, volteos, Roll Off, góndolas, grúas articuladas, cajas de transferencia y contenedores</b> — montados sobre chasis y semirremolques.
-        </p>
-        <div class="mt-6 grid grid-cols-2 gap-3">
-          <div class="rounded-2xl bg-white border border-line p-4">
-            <div class="w-8 h-8 rounded-full bg-paper border border-line grid place-items-center"><i data-lucide="users" class="w-4 h-4"></i></div>
-            <div class="mt-3 font-bold text-sm">Talento humano</div>
-            <div class="text-xs text-ink/60 leading-4">Desarrollo constante y mejora continua de procesos.</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-line p-4">
-            <div class="w-8 h-8 rounded-full bg-paper border border-line grid place-items-center"><i data-lucide="leaf" class="w-4 h-4"></i></div>
-            <div class="mt-3 font-bold text-sm">Cuidado ambiental</div>
-            <div class="text-xs text-ink/60 leading-4">Eficiencia y sustentabilidad en cada entrega.</div>
-          </div>
+<!-- SECOND CINEMATIC CHAPTER — temporary local source; production media swaps in after approval. -->
+<section id="historia" class="cinematic-story cinematic-story--heritage" aria-labelledby="heritageTitle">
+  <div class="cinematic-canvas" aria-hidden="true">
+    <video id="cinematicHeritageVideo" class="cinematic-video" muted playsinline webkit-playsinline preload="metadata" poster="assets/video/repsa-roll-off-scroll-poster.jpg">
+      <source data-src="assets/video/repsa-roll-off-scroll.mp4" type="video/mp4">
+    </video>
+    <div class="cinematic-shade"></div>
+    <div class="cinematic-vignette"></div>
+    <div class="cinematic-facility-label">DISEÑO Y FABRICACIÓN · TOLUCA</div>
+    <div class="cinematic-footer">
+      <div class="cinematic-location"><i data-lucide="layers-3" class="w-3.5 h-3.5"></i> Del equipo al patio</div>
+      <div class="cinematic-timeline">
+        <div class="cinematic-progress-copy"><span id="heritageProgressLabel">HISTORIA 01</span><span id="heritageProgressValue">00</span></div>
+        <div class="cinematic-progress-track"><span id="heritageProgressFill" class="cinematic-progress-fill"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cinematic-story-track">
+    <article class="cinematic-chapter cinematic-chapter--left" data-cinematic-chapter>
+      <div class="cinematic-copy">
+        <p class="cinematic-kicker">01 · NUESTRA HISTORIA</p>
+        <h2 id="heritageTitle" class="cinematic-title">25 años<br>construyendo<br><em>confianza</em> nacional.</h2>
+        <p class="cinematic-body">Desde Toluca, REPSA transforma necesidades operativas en carrocerías y equipos hechos para sostener el trabajo cotidiano de ciudades e industria.</p>
+        <div class="cinematic-facts" aria-label="Trayectoria REPSA">
+          <span class="cinematic-fact"><strong>+25 años</strong> de experiencia</span>
+          <span class="cinematic-fact">México · Centro y Sudamérica</span>
         </div>
-        <div class="mt-6 rounded-2xl overflow-hidden border border-line bg-white p-1">
-          <div class="rounded-xl overflow-hidden relative h-[180px]">
-            <img src="assets/fotos/01-camion-roll-off-planta-repsa-lg.jpg" alt="Roll Off fabricado en la planta de REPSA en Toluca" class="w-full h-full object-cover" width="1280" height="574">
-            <div class="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent"></div>
-            <div class="absolute bottom-3 left-3 right-3 text-white">
-              <div class="text-xs font-mono tracking-widest opacity-80">PLANTA TOLUCA · EDOMEX</div>
-              <div class="font-semibold text-sm">Fabricación bajo norma ISO 9001:2015 en cada proceso.</div>
-            </div>
-          </div>
+      </div>
+    </article>
+
+    <article class="cinematic-chapter cinematic-chapter--right" data-cinematic-chapter>
+      <div class="cinematic-card">
+        <p class="cinematic-card-index">02 · PERSONAS Y OFICIO</p>
+        <h2>Todo proyecto empieza antes de entrar al patio.</h2>
+        <p>Planeación, conversación técnica e ingeniería conectan lo que necesita cada operación con la unidad que se entrega.</p>
+      </div>
+    </article>
+
+    <article class="cinematic-chapter cinematic-chapter--left" data-cinematic-chapter>
+      <div class="cinematic-card">
+        <p class="cinematic-card-index">03 · MISIÓN</p>
+        <h2>Fabricar soluciones que generan valor.</h2>
+        <p>Carrocerías para recolección y transporte de materiales sólidos, tanques cisterna y grúas articuladas para los sectores público y privado.</p>
+      </div>
+    </article>
+
+    <article class="cinematic-chapter cinematic-chapter--center cinematic-chapter--closing" data-cinematic-chapter>
+      <div class="cinematic-copy">
+        <p class="cinematic-kicker">04 · VISIÓN</p>
+        <h2 class="cinematic-title">Ser la primera opción de compra y <em>servicio.</em></h2>
+        <p class="cinematic-body">Un proceso que va de la ingeniería al montaje de cada unidad, con la vista puesta en México y Latinoamérica.</p>
+        <div class="cinematic-actions">
+          <a href="#productos" class="cinematic-action cinematic-action-primary">Ver soluciones REPSA <i data-lucide="arrow-down-right" class="w-4 h-4"></i></a>
+          <a href="#contacto" class="cinematic-action cinematic-action-secondary">Hablar de mi proyecto <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Supporting company detail remains accessible after the visual story. -->
+<section id="historia-detalle" class="bg-paper border-y border-line">
+  <div class="max-w-[1360px] mx-auto px-5 lg:px-6 py-10 lg:py-14 grid lg:grid-cols-12 gap-6 lg:gap-8">
+    <div class="lg:col-span-5">
+      <div class="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.16em] text-reblue font-bold"><span class="w-6 h-px bg-reblue"></span> COMPROMISO REPSA</div>
+      <h2 class="mt-3 font-display font-extrabold text-[32px] lg:text-[42px] leading-[0.95] tracking-tight">Calidad que permanece cuando la unidad <span class="text-reblue">sale al patio.</span></h2>
+      <p class="mt-4 text-[15px] leading-6 text-ink/65">La historia visual abre el recorrido; estos principios sostienen cada diseño, fabricación y entrega de REPSA.</p>
+      <div class="mt-6 rounded-2xl overflow-hidden border border-line bg-white p-1">
+        <div class="rounded-xl overflow-hidden relative h-[200px]">
+          <img src="assets/fotos/15-camion-caja-de-carga-en-planta-lg.jpg" alt="Camión con caja de carga fabricada por REPSA en planta" class="w-full h-full object-cover" width="1280" height="720" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-ink/65 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 right-3 text-white"><div class="text-xs font-mono tracking-widest opacity-80">PLANTA TOLUCA · EDOMEX</div><div class="font-semibold text-sm">Diseño, fabricación y montaje para cada operación.</div></div>
         </div>
       </div>
     </div>
 
     <div class="lg:col-span-7 space-y-6">
-      <!-- misión / visión -->
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div class="rounded-[20px] bg-white border border-line p-6 card-hover">
-          <div class="w-10 h-10 rounded-xl bg-reblue text-white grid place-items-center"><i data-lucide="target" class="w-5 h-5"></i></div>
-          <h3 class="mt-4 font-bold">Misión</h3>
-          <p class="mt-2 text-sm leading-6 text-ink/65">Fabricar carrocerías para recolección y transporte de materiales sólidos, tanques cisterna y grúas articuladas, atendiendo al sector público y privado con calidad que genera valor.</p>
-        </div>
-        <div class="rounded-[20px] bg-ink text-white p-6 relative overflow-hidden">
-          <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-white/10"></div>
-          <div class="w-10 h-10 rounded-xl bg-white/15 grid place-items-center"><i data-lucide="eye" class="w-5 h-5"></i></div>
-          <h3 class="mt-4 font-bold">Visión</h3>
-          <p class="mt-2 text-sm leading-6 text-white/75">Ser líderes en el mercado nacional en venta de carrocerías e incrementar presencia en <b class="text-white">Latinoamérica</b>. Primera opción de compra y servicio.</p>
-        </div>
-      </div>
-
-      <!-- política calidad -->
       <div class="rounded-[20px] bg-white border border-line p-6 lg:p-7">
         <div class="flex flex-wrap items-start justify-between gap-4">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-200 text-xs font-bold">POLÍTICA DE CALIDAD</div>
           <span class="text-xs font-mono text-ink/50">REP-AC-FR/PP · Revisión Inicial</span>
         </div>
-        <p class="mt-4 text-[15px] leading-7 text-ink/80 italic border-l-4 border-reblue pl-4">
-          “Estamos comprometidos en entregar productos de calidad que cumplan con los requerimientos de nuestros clientes, procurando mantener la confianza y reputación en nuestra marca con la finalidad de mejorar el servicio de recolección de residuos municipales.”
-        </p>
+        <p class="mt-4 text-[15px] leading-7 text-ink/80 italic border-l-4 border-reblue pl-4">“Estamos comprometidos en entregar productos de calidad que cumplan con los requerimientos de nuestros clientes, procurando mantener la confianza y reputación en nuestra marca con la finalidad de mejorar el servicio de recolección de residuos municipales.”</p>
         <div class="mt-5 flex flex-wrap gap-2">
           <span class="px-3 py-1.5 rounded-full bg-paper border border-line text-xs font-medium">Diseño + fabricación</span>
           <span class="px-3 py-1.5 rounded-full bg-paper border border-line text-xs font-medium">Marca REPSA®</span>
@@ -607,29 +637,12 @@ body{padding-bottom:70px}
         </div>
       </div>
 
-      <!-- valores / bullet -->
       <div class="rounded-[20px] bg-paper border border-line p-1">
         <div class="grid sm:grid-cols-2 gap-1">
-          <div class="rounded-[14px] bg-white p-5 border border-line/60">
-            <div class="text-xs font-mono tracking-widest text-ink/50">01 — VALOR</div>
-            <div class="font-bold mt-1">Procesos que crean valor</div>
-            <div class="text-sm text-ink/60 mt-1">Clientes, empleados y socios en el centro.</div>
-          </div>
-          <div class="rounded-[14px] bg-white p-5 border border-line/60">
-            <div class="text-xs font-mono tracking-widest text-ink/50">02 — SERVICIO</div>
-            <div class="font-bold mt-1">Primera opción del mercado</div>
-            <div class="text-sm text-ink/60 mt-1">Compra y postventa donde estés.</div>
-          </div>
-          <div class="rounded-[14px] bg-white p-5 border border-line/60">
-            <div class="text-xs font-mono tracking-widest text-ink/50">03 — INNOVACIÓN</div>
-            <div class="font-bold mt-1">Mejora continua constante</div>
-            <div class="text-sm text-ink/60 mt-1">Estándares internacionales ISO.</div>
-          </div>
-          <div class="rounded-[14px] bg-reblue text-white p-5">
-            <div class="text-xs font-mono tracking-widest text-white/60">04 — PLANETA</div>
-            <div class="font-bold mt-1">Socialmente responsables</div>
-            <div class="text-sm text-white/70 mt-1">Contribuimos al cuidado ambiental.</div>
-          </div>
+          <div class="rounded-[14px] bg-white p-5 border border-line/60"><div class="text-xs font-mono tracking-widest text-ink/50">01 — VALOR</div><div class="font-bold mt-1">Procesos que crean valor</div><div class="text-sm text-ink/60 mt-1">Clientes, empleados y socios en el centro.</div></div>
+          <div class="rounded-[14px] bg-white p-5 border border-line/60"><div class="text-xs font-mono tracking-widest text-ink/50">02 — SERVICIO</div><div class="font-bold mt-1">Primera opción del mercado</div><div class="text-sm text-ink/60 mt-1">Compra y postventa donde estés.</div></div>
+          <div class="rounded-[14px] bg-white p-5 border border-line/60"><div class="text-xs font-mono tracking-widest text-ink/50">03 — INNOVACIÓN</div><div class="font-bold mt-1">Mejora continua constante</div><div class="text-sm text-ink/60 mt-1">Estándares internacionales ISO.</div></div>
+          <div class="rounded-[14px] bg-reblue text-white p-5"><div class="text-xs font-mono tracking-widest text-white/60">04 — PLANETA</div><div class="font-bold mt-1">Socialmente responsables</div><div class="text-sm text-white/70 mt-1">Contribuimos al cuidado ambiental.</div></div>
         </div>
       </div>
     </div>
@@ -1399,15 +1412,16 @@ lenis.on('scroll', ({progress})=>{ prog.style.transform = `scaleX(${progress})` 
 gsap.registerPlugin(ScrollTrigger);
 lenis.on('scroll', ScrollTrigger.update);
 
-// CINEMATIC STORY — the normal page scroll passes over a CSS-sticky canvas.
-// ScrollTrigger advances the shot but never pins or hijacks page input.
-function initCinematicHero(){
-  const section = document.getElementById('cinematicHero');
-  const video = document.getElementById('cinematicVideo');
-  const fill = document.getElementById('cinematicProgressFill');
-  const value = document.getElementById('cinematicProgressValue');
-  const label = document.getElementById('cinematicProgressLabel');
-  const chapters = [...document.querySelectorAll('[data-cinematic-chapter]')];
+// CINEMATIC STORY — normal page scroll advances one CSS-sticky shot at a time.
+// Each section keeps its own controls so a second story cannot contaminate the first timeline.
+function initCinematicStory({sectionId, videoId, fillId, valueId, labelId, chapterLabels}){
+  const section = document.getElementById(sectionId);
+  const video = document.getElementById(videoId);
+  const fill = document.getElementById(fillId);
+  const value = document.getElementById(valueId);
+  const label = document.getElementById(labelId);
+  const source = video?.querySelector('source');
+  const chapters = section ? [...section.querySelectorAll('[data-cinematic-chapter]')] : [];
   if(!section || !video || section.dataset.ready) return;
   section.dataset.ready = 'true';
   video.muted = true;
@@ -1416,7 +1430,6 @@ function initCinematicHero(){
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const desktop = window.matchMedia('(min-width: 900px)');
-  const chapterLabels = ['RECORRIDO 01', 'CAPACIDAD', 'FABRICACIÓN', 'SOLUCIONES'];
   let frame = 0;
   let videoScrollTween;
   let mobileVideoTrigger;
@@ -1450,13 +1463,11 @@ function initCinematicHero(){
     const distance = Math.max(1, section.offsetHeight - viewport);
     const progress = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / distance));
     if(!desktop.matches && !reduceMotion.matches) queueLatestSeek(progress * videoEndTime());
-    // Four viewport chapters occupy three scroll-lengths after the first one.
     const activeIndex = Math.min(chapters.length - 1, Math.floor(progress * (chapters.length - 1) + .001));
     if(fill) fill.style.transform = `scaleX(${progress})`;
     if(value) value.textContent = String(Math.round(progress * 100)).padStart(2, '0');
-    if(label) label.textContent = chapterLabels[activeIndex] || 'RECORRIDO';
+    if(label) label.textContent = chapterLabels[activeIndex] || chapterLabels[0] || 'RECORRIDO';
     chapters.forEach((chapter, index) => chapter.toggleAttribute('data-active', index === activeIndex));
-
   };
   const requestUpdate = () => {
     if(!frame) frame = requestAnimationFrame(update);
@@ -1475,16 +1486,16 @@ function initCinematicHero(){
     queuedVideoTime = null;
   };
   const begin = () => {
+    if(video.readyState < 1) return;
     releaseVideoScroll();
     video.pause();
     if(reduceMotion.matches){
-      video.currentTime = 0;
+      try { video.currentTime = 0; } catch(_) {}
       update();
       return;
     }
     if(!desktop.matches){
-      // Mobile browsers can backlog rapid currentTime writes. This trigger sends
-      // only the latest requested frame while the previous seek is resolving.
+      // Mobile browsers can backlog rapid currentTime writes. Keep only the latest requested frame.
       mobileVideoTrigger = ScrollTrigger.create({
         trigger:section,
         start:'top top',
@@ -1496,25 +1507,37 @@ function initCinematicHero(){
       ScrollTrigger.refresh();
       return;
     }
-    const endTime = videoEndTime();
     videoScrollTween = gsap.to(video, {
-      currentTime:endTime,
+      currentTime:videoEndTime(),
       duration:1,
       ease:'none',
-      scrollTrigger:{
-        trigger:section,
-        start:'top top',
-        end:'bottom bottom',
-        scrub:.35,
-        invalidateOnRefresh:true
-      }
+      scrollTrigger:{trigger:section,start:'top top',end:'bottom bottom',scrub:.35,invalidateOnRefresh:true}
     });
     update();
     ScrollTrigger.refresh();
   };
+  const loadVideo = () => {
+    if(video.dataset.sourceLoaded) return;
+    video.dataset.sourceLoaded = 'true';
+    if(source?.dataset.src){
+      source.setAttribute('src', source.dataset.src);
+      video.load();
+    }
+    if(video.readyState >= 2) begin();
+    else video.addEventListener('loadeddata', begin, {once:true});
+  };
 
-  if(video.readyState >= 2) begin();
-  else video.addEventListener('loadeddata', begin, {once:true});
+  if(source?.dataset.src && 'IntersectionObserver' in window){
+    const observer = new IntersectionObserver(entries=>{
+      if(entries.some(entry=>entry.isIntersecting)){
+        loadVideo();
+        observer.disconnect();
+      }
+    }, {rootMargin:'150% 0px'});
+    observer.observe(section);
+  }else{
+    loadVideo();
+  }
   const refreshLayout = () => {
     requestUpdate();
     clearTimeout(layoutRefresh);
@@ -1526,15 +1549,46 @@ function initCinematicHero(){
   window.addEventListener('resize', refreshLayout, {passive:true});
   window.addEventListener('orientationchange', refreshLayout, {passive:true});
   window.visualViewport?.addEventListener('resize', refreshLayout, {passive:true});
-  desktop.addEventListener?.('change', begin);
+  desktop.addEventListener?.('change', ()=>{ if(video.dataset.sourceLoaded) begin(); });
   window.addEventListener('scroll', requestUpdate, {passive:true});
   lenis.on('scroll', requestUpdate);
-  reduceMotion.addEventListener?.('change', begin);
+  reduceMotion.addEventListener?.('change', ()=>{ if(video.dataset.sourceLoaded) begin(); });
   document.addEventListener('visibilitychange', ()=>{
     if(document.hidden) video.pause();
     else requestUpdate();
   });
   video.addEventListener('error', ()=>{ video.pause(); });
+  requestUpdate();
+}
+
+function initCinematicBridge(){
+  const bridge = document.getElementById('cinematicBridge');
+  if(!bridge || bridge.dataset.ready) return;
+  bridge.dataset.ready = 'true';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const setProgress = progress => bridge.style.setProperty('--bridge-progress', reduceMotion.matches ? 1 : progress.toFixed(3));
+  const bridgeScroll = ScrollTrigger.create({
+    trigger:bridge,
+    start:'top bottom',
+    end:'bottom top',
+    onUpdate:self=>setProgress(self.progress),
+    onRefresh:self=>setProgress(self.progress)
+  });
+  reduceMotion.addEventListener?.('change', ()=>setProgress(bridgeScroll.progress));
+}
+
+function initCinematicHero(){
+  initCinematicStory({
+    sectionId:'cinematicHero', videoId:'cinematicVideo', fillId:'cinematicProgressFill', valueId:'cinematicProgressValue', labelId:'cinematicProgressLabel',
+    chapterLabels:['RECORRIDO 01', 'CAPACIDAD', 'FABRICACIÓN', 'SOLUCIONES']
+  });
+}
+
+function initCinematicHeritage(){
+  initCinematicStory({
+    sectionId:'historia', videoId:'cinematicHeritageVideo', fillId:'heritageProgressFill', valueId:'heritageProgressValue', labelId:'heritageProgressLabel',
+    chapterLabels:['HISTORIA 01', 'PERSONAS Y OFICIO', 'MISIÓN', 'VISIÓN']
+  });
 }
 
 gsap.utils.toArray('[data-count]').forEach(el=>{
@@ -1815,6 +1869,8 @@ const preFill = document.getElementById('preFill');
 function boot(){
   lenis.start();
   initCinematicHero();
+  initCinematicBridge();
+  initCinematicHeritage();
   featAutoplay();
 }
 if(preloader){
