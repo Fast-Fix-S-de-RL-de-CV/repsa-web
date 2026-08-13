@@ -1385,6 +1385,13 @@ body{padding-bottom:70px}
 <script>
 lucide.createIcons();
 
+// A fresh visit belongs at the beginning of the story. The preloader stops
+// Lenis briefly, so native scroll restoration can otherwise leave the page at
+// a stale offset before the smooth-scrolling engine starts.
+if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+const shouldStartAtTop = !window.location.hash || window.location.hash === '#';
+if(shouldStartAtTop) window.scrollTo(0, 0);
+
 // LENIS
 const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
 function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
@@ -1814,6 +1821,7 @@ const preloader = document.getElementById('preloader');
 const preFill = document.getElementById('preFill');
 function boot(){
   lenis.start();
+  if(shouldStartAtTop) lenis.scrollTo(0, {immediate:true});
   initCinematicHero();
   featAutoplay();
 }
